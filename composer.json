@@ -1,0 +1,6 @@
+{
+    "require": {
+        "mercadopago/dx-php": "^2.6",
+        "firebase/php-jwt": "^6.0"
+    }
+}

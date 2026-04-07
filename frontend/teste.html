@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Teste WampServer</title>
+</head>
+<body>
+    <h1>Teste de Conexão - Dino Run</h1>
+    <button onclick="testar()">Testar API</button>
+    <pre id="resultado"></pre>
+
+    <script>
+    async function testar() {
+        const resultado = document.getElementById('resultado');
+        resultado.innerText = 'Testando conexão...';
+        
+        try {
+            // Testar API
+            const response = await fetch('http://localhost/projeto-jogo-php/api/teste.php');
+            const data = await response.json();
+            resultado.innerText = JSON.stringify(data, null, 2);
+        } catch(error) {
+            resultado.innerText = 'Erro: ' + error.message + '\n\nVerifique se o WampServer está rodando';
+        }
+    }
+    </script>
+</body>
+</html>

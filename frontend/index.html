@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dino Run - Ganhe Dinheiro de Verdade!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Painel de login/cadastro -->
+        <div id="authPanel" class="auth-panel">
+            <h2>🦖 Dino Run - Ganhe Dinheiro!</h2>
+            <div id="loginForm">
+                <input type="email" id="loginEmail" placeholder="E-mail" required>
+                <input type="password" id="loginPassword" placeholder="Senha" required>
+                <button onclick="login()">Entrar</button>
+                <button onclick="showRegister()">Cadastrar</button>
+            </div>
+            <div id="registerForm" style="display:none">
+                <input type="email" id="registerEmail" placeholder="E-mail" required>
+                <input type="password" id="registerPassword" placeholder="Senha" required>
+                <button onclick="register()">Cadastrar</button>
+                <button onclick="showLogin()">Voltar</button>
+            </div>
+        </div>
+
+        <!-- Jogo (só aparece após login) -->
+        <div id="gamePanel" style="display:none">
+            <div class="game-header">
+                <div class="player-info">
+                    <span>👤 <span id="userEmail"></span></span>
+                    <span>⭐ Pontos: <span id="pontos">0</span></span>
+                    <span>💰 Saldo: R$ <span id="saldoReais">0.00</span></span>
+                </div>
+                <button onclick="logout()" class="logout-btn">Sair</button>
+            </div>
+
+            <canvas id="gameCanvas" width="800" height="200"></canvas>
+            
+            <div class="game-controls">
+                <p>Pressione <strong>ESPAÇO</strong> ou <strong>CLIQUE</strong> para pular</p>
+                <button onclick="converterPontos()" id="btnConverter">💱 Converter Pontos em Dinheiro</button>
+                <button onclick="mostrarSaque()" id="btnSacar">💰 Sacar Dinheiro</button>
+            </div>
+
+            <div id="pointsInfo">
+                <small>💡 Dica: Cada 100 pontos = R$ 1,00</small>
+            </div>
+        </div>
+
+        <!-- Modal de Saque -->
+        <div id="withdrawModal" class="modal" style="display:none">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModal()">&times;</span>
+                <h3>💰 Sacar Dinheiro</h3>
+                
+                <!-- Seção da Chave Pix -->
+                <div id="pixSection">
+                    <label>Sua Chave Pix:</label>
+                    <input type="text" id="pixKey" placeholder="Digite sua chave Pix">
+                    <select id="pixType">
+                        <option value="cpf">CPF</option>
+                        <option value="email">E-mail</option>
+                        <option value="phone">Telefone</option>
+                        <option value="random">Chave Aleatória</option>
+                    </select>
+                    <button onclick="salvarChavePix()">💾 Salvar Chave</button>
+                </div>
+                
+                <hr>
+                
+                <!-- Seção de Saque -->
+                <div id="withdrawSection">
+                    <label>Valor para sacar (R$):</label>
+                    <input type="number" id="withdrawAmount" step="5" min="5" placeholder="Ex: 10">
+                    <p>Mínimo: R$ 5,00 | Máximo: R$ 500,00</p>
+                    <button onclick="solicitarSaque()">📱 Solicitar Saque via Pix</button>
+                </div>
+                
+                <!-- QR Code -->
+                <div id="qrcodeSection" style="display:none; margin-top:20px; text-align:center">
+                    <h4>📱 Pague o QR Code para receber o dinheiro</h4>
+                    <img id="qrcodeImage" src="" style="max-width:200px; margin:10px auto; display:block">
+                    <p id="copyPasteCode" style="word-break:break-all; font-size:12px"></p>
+                    <button onclick="fecharModal()" style="background:#28a745">Fechar</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loading -->
+        <div id="loading" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:white; padding:20px; border-radius:10px; z-index:2000">
+            Processando...
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
